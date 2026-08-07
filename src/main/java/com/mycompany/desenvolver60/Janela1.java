@@ -206,7 +206,7 @@ public class Janela1 extends javax.swing.JFrame {
 
         botaoMenu.setFont(
                 new java.awt.Font(
-                        "Arial",
+                        "Times New Roman",
                         java.awt.Font.BOLD,
                         22
                 )
@@ -503,7 +503,9 @@ public class Janela1 extends javax.swing.JFrame {
     }//GEN-LAST:event_botao1MouseClicked
 
     private void botao1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao1ActionPerformed
-        // TODO add your handling code here:
+        setVisible(false);
+        CriarConta janela = new CriarConta();
+        janela.setVisible(true);
     }//GEN-LAST:event_botao1ActionPerformed
 
     private void botao3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botao3MouseClicked
