@@ -1,20 +1,29 @@
-
 package com.mycompany.desenvolver60;
 
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.awt.Color;
+import java.awt.Font;
 
 public class CriarConta extends javax.swing.JFrame {
-
+    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CriarConta.class.getName());
 
     public CriarConta() {
-        
+
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
-        
-        getContentPane().setBackground(new Color(244, 232, 184));
 
+        getContentPane().setBackground(new Color(244, 232, 184));
+        jLabelC.setFont(FonteUtil.carregarFonte("AbrilFatface-Regular.ttf", 30f));
+        label22.setFont(FonteUtil.carregarFonte("league-spartan-bold.otf", 15f).deriveFont(Font.BOLD));
+        label22.setText("<html><u>Preencha com seus dados</u></html>");
+        jButton1.setText("<html><u>Fazer Login</u></html>");
+ 
+        
+        
     }
 
     /**
@@ -26,11 +35,30 @@ public class CriarConta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDialog1 = new javax.swing.JDialog();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         btnMenu = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         roundedPanel1 = new com.mycompany.desenvolver60.RoundedPanel();
+        jLabelC = new javax.swing.JLabel();
+        label22 = new javax.swing.JLabel();
+        txtNome = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
+        cadastroBnt = new com.mycompany.desenvolver60.RoundedButton();
+        txtSenha = new javax.swing.JPasswordField();
+        jButton1 = new javax.swing.JButton();
+
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 255, 102));
@@ -52,7 +80,7 @@ public class CriarConta extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(320, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(198, 198, 198))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -72,17 +100,90 @@ public class CriarConta extends javax.swing.JFrame {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Design sem nome (4) (2) (1).png"))); // NOI18N
 
-        roundedPanel1.setBackground(new java.awt.Color(0, 204, 204));
+        roundedPanel1.setBackground(new java.awt.Color(106, 195, 198));
+
+        jLabelC.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        jLabelC.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelC.setText("Crie Sua Conta");
+
+        label22.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        label22.setForeground(new java.awt.Color(20, 82, 84));
+        label22.setText("Preencha com seus dados");
+
+        txtNome.setFont(new java.awt.Font("Abril Fatface", 0, 15)); // NOI18N
+        txtNome.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
+
+        txtEmail.setFont(new java.awt.Font("Abril Fatface", 0, 15)); // NOI18N
+        txtEmail.setBorder(javax.swing.BorderFactory.createTitledBorder("E-mail"));
+
+        cadastroBnt.setBackground(new java.awt.Color(246, 211, 71));
+        cadastroBnt.setBorder(null);
+        cadastroBnt.setForeground(new java.awt.Color(20, 82, 84));
+        cadastroBnt.setText("Cadastrar");
+        cadastroBnt.setToolTipText("Clique aqui para iniciar as atividades");
+        cadastroBnt.setBorderPainted(true);
+        cadastroBnt.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        cadastroBnt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        cadastroBnt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cadastroBntMouseClicked(evt);
+            }
+        });
+        cadastroBnt.addActionListener(this::cadastroBntActionPerformed);
+
+        txtSenha.setBorder(javax.swing.BorderFactory.createTitledBorder("Senha"));
+        txtSenha.addActionListener(this::txtSenhaActionPerformed);
+
+        jButton1.setText("Fazer Login");
+        jButton1.setToolTipText("");
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
 
         javax.swing.GroupLayout roundedPanel1Layout = new javax.swing.GroupLayout(roundedPanel1);
         roundedPanel1.setLayout(roundedPanel1Layout);
         roundedPanel1Layout.setHorizontalGroup(
             roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 333, Short.MAX_VALUE)
+            .addGroup(roundedPanel1Layout.createSequentialGroup()
+                .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(roundedPanel1Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(label22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(roundedPanel1Layout.createSequentialGroup()
+                                .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+                                    .addComponent(txtNome)
+                                    .addComponent(txtSenha))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(roundedPanel1Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabelC, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 86, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(roundedPanel1Layout.createSequentialGroup()
+                .addGap(102, 102, 102)
+                .addComponent(cadastroBnt, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         roundedPanel1Layout.setVerticalGroup(
             roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 341, Short.MAX_VALUE)
+            .addGroup(roundedPanel1Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabelC)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(label22)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cadastroBnt, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -90,11 +191,9 @@ public class CriarConta extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(105, 105, 105)
+                .addGap(99, 99, 99)
                 .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -102,7 +201,7 @@ public class CriarConta extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -114,6 +213,50 @@ public class CriarConta extends javax.swing.JFrame {
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
 
     }//GEN-LAST:event_btnMenuActionPerformed
+
+    private void cadastroBntMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadastroBntMouseClicked
+
+    }//GEN-LAST:event_cadastroBntMouseClicked
+
+    private void cadastroBntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroBntActionPerformed
+    String nome = txtNome.getText();
+    String email = txtEmail.getText();
+    String senha = txtSenha.getText();
+
+    String sql = "INSERT INTO dadosCadastro (nome, email, senha) VALUES (?, ?, ?)";
+
+    try {
+        Connection conexao = Conexao.conectar();
+
+        PreparedStatement stmt = conexao.prepareStatement(sql);
+
+        stmt.setString(1, nome);
+        stmt.setString(2, email);
+        stmt.setString(3, senha);
+
+        stmt.executeUpdate();
+
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "Conta criada com sucesso!"
+        );
+
+        stmt.close();
+        conexao.close();
+
+    } catch (Exception e) {
+        e.printStackTrace();
+
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "Erro ao criar conta."
+        );
+    }
+    }//GEN-LAST:event_cadastroBntActionPerformed
+
+    private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSenhaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -142,9 +285,17 @@ public class CriarConta extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMenu;
+    private com.mycompany.desenvolver60.RoundedButton cadastroBnt;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabelC;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel label22;
     private com.mycompany.desenvolver60.RoundedPanel roundedPanel1;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtNome;
+    private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables
 }

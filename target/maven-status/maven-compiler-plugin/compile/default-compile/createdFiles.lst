@@ -1,10 +1,13 @@
 com\mycompany\desenvolver60\Janela1$1.class
+com\mycompany\desenvolver60\CriarConta$1.class
+com\mycompany\desenvolver60\dao\CadastroDao.class
 com\mycompany\desenvolver60\RoundedPanel.class
 com\mycompany\desenvolver60\JFrameJanela1.class
 com\mycompany\desenvolver60\Janela1$2.class
 com\mycompany\desenvolver60\CriarConta.class
 com\mycompany\desenvolver60\file.class
 com\mycompany\desenvolver60\RoundedButton.class
+com\mycompany\desenvolver60\Conexao.class
 com\mycompany\desenvolver60\FonteUtil.class
 com\mycompany\desenvolver60\Desenvolver60.class
 com\mycompany\desenvolver60\Janela1$3.class

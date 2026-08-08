@@ -268,6 +268,7 @@ public class Janela1 extends javax.swing.JFrame {
         botao.setToolTipText("Clique aqui para iniciar as atividades");
         jLabelTitle.setFont(FonteUtil.carregarFonte("AbrilFatface-Regular.ttf", 44f));
         jlabel2.setFont(FonteUtil.carregarFonte("LeagueSpartan-VariableFont_wght.ttf", 18f));
+        
 
         jlabel2.setText("<html><b>APRENDA A USAR CELULAR <br> E INTERNET COM FACILIDADE</b></html>");
     }
