@@ -1,15 +1,17 @@
 package com.mycompany.desenvolver60;
 
-
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.JOptionPane;
 
 public class CriarConta extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CriarConta.class.getName());
-
+    
     public CriarConta() {
 
         initComponents();
@@ -20,9 +22,24 @@ public class CriarConta extends javax.swing.JFrame {
         jLabelC.setFont(FonteUtil.carregarFonte("AbrilFatface-Regular.ttf", 30f));
         label22.setFont(FonteUtil.carregarFonte("league-spartan-bold.otf", 15f).deriveFont(Font.BOLD));
         label22.setText("<html><u>Preencha com seus dados</u></html>");
-        jButton1.setText("<html><u>Fazer Login</u></html>");
- 
+    }
+    
+    private boolean verificarEmail(String email){
+    
+        String sql = "SELECT id FROM dadosCadastro WHERE email = ?";
         
+        try(
+            Connection conexao = Conexao.conectar();
+            PreparedStatement stmt = conexao.prepareStatement(sql);
+            ){
+                stmt.setString(1, email);
+                ResultSet resultado = stmt.executeQuery();
+                return resultado.next(); 
+            }catch(SQLException e){
+                e.printStackTrace();
+                 JOptionPane.showMessageDialog(this, "Erro ao verificar o e-mail.");
+                 return true;
+            }
         
     }
 
@@ -35,7 +52,7 @@ public class CriarConta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDialog1 = new javax.swing.JDialog();
+        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         btnMenu = new javax.swing.JButton();
@@ -43,22 +60,12 @@ public class CriarConta extends javax.swing.JFrame {
         roundedPanel1 = new com.mycompany.desenvolver60.RoundedPanel();
         jLabelC = new javax.swing.JLabel();
         label22 = new javax.swing.JLabel();
-        txtNome = new javax.swing.JTextField();
-        txtEmail = new javax.swing.JTextField();
         cadastroBnt = new com.mycompany.desenvolver60.RoundedButton();
-        txtSenha = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        textSenha = new javax.swing.JPasswordField();
+        textNome = new javax.swing.JTextField();
+        textEmail = new javax.swing.JTextField();
 
-        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
-        jDialog1.getContentPane().setLayout(jDialog1Layout);
-        jDialog1Layout.setHorizontalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jDialog1Layout.setVerticalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 255, 102));
@@ -110,12 +117,6 @@ public class CriarConta extends javax.swing.JFrame {
         label22.setForeground(new java.awt.Color(20, 82, 84));
         label22.setText("Preencha com seus dados");
 
-        txtNome.setFont(new java.awt.Font("Abril Fatface", 0, 15)); // NOI18N
-        txtNome.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
-
-        txtEmail.setFont(new java.awt.Font("Abril Fatface", 0, 15)); // NOI18N
-        txtEmail.setBorder(javax.swing.BorderFactory.createTitledBorder("E-mail"));
-
         cadastroBnt.setBackground(new java.awt.Color(246, 211, 71));
         cadastroBnt.setBorder(null);
         cadastroBnt.setForeground(new java.awt.Color(20, 82, 84));
@@ -131,13 +132,14 @@ public class CriarConta extends javax.swing.JFrame {
         });
         cadastroBnt.addActionListener(this::cadastroBntActionPerformed);
 
-        txtSenha.setBorder(javax.swing.BorderFactory.createTitledBorder("Senha"));
-        txtSenha.addActionListener(this::txtSenhaActionPerformed);
+        textSenha.setBorder(javax.swing.BorderFactory.createTitledBorder("Senha"));
+        textSenha.addActionListener(this::textSenhaActionPerformed);
 
-        jButton1.setText("Fazer Login");
-        jButton1.setToolTipText("");
-        jButton1.setBorderPainted(false);
-        jButton1.setContentAreaFilled(false);
+        textNome.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome"));
+        textNome.addActionListener(this::textNomeActionPerformed);
+
+        textEmail.setBorder(javax.swing.BorderFactory.createTitledBorder("E-mail"));
+        textEmail.addActionListener(this::textEmailActionPerformed);
 
         javax.swing.GroupLayout roundedPanel1Layout = new javax.swing.GroupLayout(roundedPanel1);
         roundedPanel1.setLayout(roundedPanel1Layout);
@@ -146,23 +148,22 @@ public class CriarConta extends javax.swing.JFrame {
             .addGroup(roundedPanel1Layout.createSequentialGroup()
                 .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(roundedPanel1Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabelC, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 86, Short.MAX_VALUE))
+                    .addGroup(roundedPanel1Layout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(label22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(roundedPanel1Layout.createSequentialGroup()
                                 .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
-                                    .addComponent(txtNome)
-                                    .addComponent(txtSenha))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(roundedPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabelC, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 86, Short.MAX_VALUE))
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(textSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+                                    .addComponent(textNome)
+                                    .addComponent(textEmail, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
             .addGroup(roundedPanel1Layout.createSequentialGroup()
-                .addGap(102, 102, 102)
+                .addGap(103, 103, 103)
                 .addComponent(cadastroBnt, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -173,17 +174,15 @@ public class CriarConta extends javax.swing.JFrame {
                 .addComponent(jLabelC)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(label22)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textNome, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(textEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(textSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cadastroBnt, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addGap(45, 45, 45))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -201,7 +200,7 @@ public class CriarConta extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -219,9 +218,24 @@ public class CriarConta extends javax.swing.JFrame {
     }//GEN-LAST:event_cadastroBntMouseClicked
 
     private void cadastroBntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroBntActionPerformed
-    String nome = txtNome.getText();
-    String email = txtEmail.getText();
-    String senha = txtSenha.getText();
+    String nome = textNome.getText().trim();
+    String email = textEmail.getText().trim();
+    String senha = textSenha.getText().trim();
+    
+    if(nome.isEmpty()||email.isEmpty()||senha.isEmpty()){
+        JOptionPane.showMessageDialog(null, "Nem todos os campos foram preenchidos");
+        return;
+    }
+    
+    if(!email.contains("@") || !email.contains(".")){
+        JOptionPane.showMessageDialog(null, "O e-mail informado é invalido");
+        return;
+    }
+    
+    if(verificarEmail(email)){
+        JOptionPane.showMessageDialog(null, "Email já cadastrado");
+        return;
+    }    
 
     String sql = "INSERT INTO dadosCadastro (nome, email, senha) VALUES (?, ?, ?)";
 
@@ -243,6 +257,10 @@ public class CriarConta extends javax.swing.JFrame {
 
         stmt.close();
         conexao.close();
+        
+        setVisible(false);
+        Janela1 janela = new Janela1();
+        janela.setVisible(true);
 
     } catch (Exception e) {
         e.printStackTrace();
@@ -254,9 +272,17 @@ public class CriarConta extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_cadastroBntActionPerformed
 
-    private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
+    private void textSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textSenhaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtSenhaActionPerformed
+    }//GEN-LAST:event_textSenhaActionPerformed
+
+    private void textNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textNomeActionPerformed
+
+    private void textEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textEmailActionPerformed
 
     /**
      * @param args the command line arguments
@@ -286,16 +312,15 @@ public class CriarConta extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMenu;
     private com.mycompany.desenvolver60.RoundedButton cadastroBnt;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JDialog jDialog1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelC;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel label22;
     private com.mycompany.desenvolver60.RoundedPanel roundedPanel1;
-    private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtNome;
-    private javax.swing.JPasswordField txtSenha;
+    private javax.swing.JTextField textEmail;
+    private javax.swing.JTextField textNome;
+    private javax.swing.JPasswordField textSenha;
     // End of variables declaration//GEN-END:variables
 }
