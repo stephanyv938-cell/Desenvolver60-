@@ -514,7 +514,9 @@ public class Janela1 extends javax.swing.JFrame {
     }//GEN-LAST:event_botao3MouseClicked
 
     private void botao3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao3ActionPerformed
-        // TODO add your handling code here:
+        EntrarConta janela = new EntrarConta();
+        janela.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_botao3ActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
