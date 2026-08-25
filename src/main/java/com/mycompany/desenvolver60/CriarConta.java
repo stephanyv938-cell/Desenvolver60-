@@ -9,9 +9,10 @@ import java.awt.Font;
 import javax.swing.JOptionPane;
 
 public class CriarConta extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CriarConta.class.getName());
-    
+    private boolean senhaVisivel = false;
+
     public CriarConta() {
 
         initComponents();
@@ -23,24 +24,22 @@ public class CriarConta extends javax.swing.JFrame {
         label22.setFont(FonteUtil.carregarFonte("league-spartan-bold.otf", 15f).deriveFont(Font.BOLD));
         label22.setText("<html><u>Preencha com seus dados</u></html>");
     }
-    
-    private boolean verificarEmail(String email){
-    
+
+    private boolean verificarEmail(String email) {
+
         String sql = "SELECT id FROM dadosCadastro WHERE email = ?";
-        
-        try(
-            Connection conexao = Conexao.conectar();
-            PreparedStatement stmt = conexao.prepareStatement(sql);
-            ){
-                stmt.setString(1, email);
-                ResultSet resultado = stmt.executeQuery();
-                return resultado.next(); 
-            }catch(SQLException e){
-                e.printStackTrace();
-                 JOptionPane.showMessageDialog(this, "Erro ao verificar o e-mail.");
-                 return true;
-            }
-        
+
+        try (
+                Connection conexao = Conexao.conectar(); PreparedStatement stmt = conexao.prepareStatement(sql);) {
+            stmt.setString(1, email);
+            ResultSet resultado = stmt.executeQuery();
+            return resultado.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro ao verificar o e-mail.");
+            return true;
+        }
+
     }
 
     /**
@@ -64,6 +63,7 @@ public class CriarConta extends javax.swing.JFrame {
         textSenha = new javax.swing.JPasswordField();
         textNome = new javax.swing.JTextField();
         textEmail = new javax.swing.JTextField();
+        btnVerSenha = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -139,7 +139,11 @@ public class CriarConta extends javax.swing.JFrame {
         textNome.addActionListener(this::textNomeActionPerformed);
 
         textEmail.setBorder(javax.swing.BorderFactory.createTitledBorder("E-mail"));
+        textEmail.setName(""); // NOI18N
         textEmail.addActionListener(this::textEmailActionPerformed);
+
+        btnVerSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/visibility_16dp_000000_FILL0_wght400_GRAD0_opsz20 (1)_1.png"))); // NOI18N
+        btnVerSenha.addActionListener(this::btnVerSenhaActionPerformed);
 
         javax.swing.GroupLayout roundedPanel1Layout = new javax.swing.GroupLayout(roundedPanel1);
         roundedPanel1.setLayout(roundedPanel1Layout);
@@ -149,24 +153,27 @@ public class CriarConta extends javax.swing.JFrame {
                 .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(roundedPanel1Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(jLabelC, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 86, Short.MAX_VALUE))
-                    .addGroup(roundedPanel1Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
                         .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(label22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelC, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(label22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(roundedPanel1Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+                            .addComponent(textNome)
                             .addGroup(roundedPanel1Layout.createSequentialGroup()
-                                .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(textSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
-                                    .addComponent(textNome)
-                                    .addComponent(textEmail, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addComponent(textSenha)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnVerSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
             .addGroup(roundedPanel1Layout.createSequentialGroup()
-                .addGap(103, 103, 103)
+                .addGap(93, 93, 93)
                 .addComponent(cadastroBnt, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        roundedPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {textEmail, textNome, textSenha});
+
         roundedPanel1Layout.setVerticalGroup(
             roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel1Layout.createSequentialGroup()
@@ -174,15 +181,20 @@ public class CriarConta extends javax.swing.JFrame {
                 .addComponent(jLabelC)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(label22)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textNome, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(textEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(textSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(34, 34, 34)
+                .addComponent(textNome, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(textEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(roundedPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(textSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(roundedPanel1Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(btnVerSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(32, 32, 32)
                 .addComponent(cadastroBnt, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -192,7 +204,7 @@ public class CriarConta extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(99, 99, 99)
+                .addGap(97, 97, 97)
                 .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -200,9 +212,9 @@ public class CriarConta extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGap(47, 47, 47)
                 .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -218,56 +230,66 @@ public class CriarConta extends javax.swing.JFrame {
     }//GEN-LAST:event_cadastroBntMouseClicked
 
     private void cadastroBntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroBntActionPerformed
-    String nome = textNome.getText().trim();
+       String nome = textNome.getText().trim();
     String email = textEmail.getText().trim();
-    String senha = textSenha.getText().trim();
-    
-    if(nome.isEmpty()||email.isEmpty()||senha.isEmpty()){
-        JOptionPane.showMessageDialog(null, "Nem todos os campos foram preenchidos");
-        return;
-    }
-    
-    if(!email.contains("@") || !email.contains(".")){
-        JOptionPane.showMessageDialog(null, "O e-mail informado é invalido");
-        return;
-    }
-    
-    if(verificarEmail(email)){
-        JOptionPane.showMessageDialog(null, "Email já cadastrado");
-        return;
-    }    
+    String senha = new String(textSenha.getPassword()).trim();
 
-    String sql = "INSERT INTO dadosCadastro (nome, email, senha) VALUES (?, ?, ?)";
+    if (nome.isEmpty() || email.isEmpty() || senha.isEmpty()) {
 
-    try {
-        Connection conexao = Conexao.conectar();
-
-        PreparedStatement stmt = conexao.prepareStatement(sql);
-
-        stmt.setString(1, nome);
-        stmt.setString(2, email);
-        stmt.setString(3, senha);
-
-        stmt.executeUpdate();
-
-        javax.swing.JOptionPane.showMessageDialog(
+        JOptionPane.showMessageDialog(
                 this,
-                "Conta criada com sucesso!"
+                "Nem todos os campos foram preenchidos"
         );
 
-        stmt.close();
-        conexao.close();
+        return;
+    }
+
+    
+    if (!email.contains("@") || !email.contains(".")) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "O e-mail informado é inválido"
+        );
+
+        return;
+    }
+
+    
+    if (verificarEmail(email)) {
+
+        JOptionPane.showMessageDialog(
+                this,
+                "E-mail já cadastrado"
+        );
+
+        return;
+    }
+
+    
+    String codigo = CodigoVerificacao.gerarCodigo();
+
+    try {
+
+        EnviarEmail.enviarCodigo(email, codigo);
+
         
-        setVisible(false);
-        Janela1 janela = new Janela1();
+        VerificarEmail janela = new VerificarEmail(
+                email,
+                senha,
+                codigo
+        );
+
         janela.setVisible(true);
+        this.dispose();
 
     } catch (Exception e) {
+
         e.printStackTrace();
 
-        javax.swing.JOptionPane.showMessageDialog(
+        JOptionPane.showMessageDialog(
                 this,
-                "Erro ao criar conta."
+                "Não foi possível enviar o código de verificação."
         );
     }
     }//GEN-LAST:event_cadastroBntActionPerformed
@@ -283,6 +305,17 @@ public class CriarConta extends javax.swing.JFrame {
     private void textEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textEmailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textEmailActionPerformed
+
+    private void btnVerSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerSenhaActionPerformed
+
+        if (senhaVisivel) {
+            textSenha.setEchoChar('•');
+            senhaVisivel = false;
+        } else {
+            textSenha.setEchoChar((char) 0);
+            senhaVisivel = true;
+        }
+    }//GEN-LAST:event_btnVerSenhaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -311,6 +344,7 @@ public class CriarConta extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMenu;
+    private javax.swing.JButton btnVerSenha;
     private com.mycompany.desenvolver60.RoundedButton cadastroBnt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;

@@ -13,7 +13,7 @@ import java.awt.Color;
 public class EntrarConta extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(EntrarConta.class.getName());
-
+    private boolean senhaVisivel = false;
     /**
      * Creates new form EntrarConta
      */
@@ -40,7 +40,12 @@ public class EntrarConta extends javax.swing.JFrame {
         btnMenu = new javax.swing.JButton();
         roundedPanel1 = new com.mycompany.desenvolver60.RoundedPanel();
         jLabelC = new javax.swing.JLabel();
-        label22 = new javax.swing.JLabel();
+        roundedPanel2 = new com.mycompany.desenvolver60.RoundedPanel();
+        label23 = new javax.swing.JLabel();
+        cadastroBnt = new com.mycompany.desenvolver60.RoundedButton();
+        SenhaL = new javax.swing.JPasswordField();
+        EmailL = new javax.swing.JTextField();
+        btnVerSenha = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(549, 765));
@@ -87,9 +92,66 @@ public class EntrarConta extends javax.swing.JFrame {
         jLabelC.setForeground(new java.awt.Color(255, 255, 255));
         jLabelC.setText("Entre com sua conta");
 
-        label22.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        label22.setForeground(new java.awt.Color(20, 82, 84));
-        label22.setText("Preencha com seus dados");
+        roundedPanel2.setBackground(new java.awt.Color(106, 195, 198));
+
+        label23.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        label23.setForeground(new java.awt.Color(20, 82, 84));
+        label23.setText("Preencha com seus dados");
+
+        cadastroBnt.setBackground(new java.awt.Color(246, 211, 71));
+        cadastroBnt.setBorder(null);
+        cadastroBnt.setForeground(new java.awt.Color(20, 82, 84));
+        cadastroBnt.setText("Entrar");
+        cadastroBnt.setToolTipText("Clique aqui para iniciar as atividades");
+        cadastroBnt.setBorderPainted(true);
+        cadastroBnt.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        cadastroBnt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        cadastroBnt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cadastroBntMouseClicked(evt);
+            }
+        });
+        cadastroBnt.addActionListener(this::cadastroBntActionPerformed);
+
+        SenhaL.setBorder(javax.swing.BorderFactory.createTitledBorder("Senha"));
+        SenhaL.addActionListener(this::SenhaLActionPerformed);
+
+        EmailL.setBorder(javax.swing.BorderFactory.createTitledBorder("E-mail"));
+        EmailL.setName(""); // NOI18N
+        EmailL.addActionListener(this::EmailLActionPerformed);
+
+        javax.swing.GroupLayout roundedPanel2Layout = new javax.swing.GroupLayout(roundedPanel2);
+        roundedPanel2.setLayout(roundedPanel2Layout);
+        roundedPanel2Layout.setHorizontalGroup(
+            roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(roundedPanel2Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(EmailL, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+                    .addComponent(SenhaL))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundedPanel2Layout.createSequentialGroup()
+                .addContainerGap(94, Short.MAX_VALUE)
+                .addComponent(cadastroBnt, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(76, 76, 76))
+        );
+        roundedPanel2Layout.setVerticalGroup(
+            roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(roundedPanel2Layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(label23)
+                .addGap(29, 29, 29)
+                .addComponent(EmailL, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(SenhaL, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(cadastroBnt, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(135, Short.MAX_VALUE))
+        );
+
+        btnVerSenha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/visibility_16dp_000000_FILL0_wght400_GRAD0_opsz20 (1)_1.png"))); // NOI18N
+        btnVerSenha.addActionListener(this::btnVerSenhaActionPerformed);
 
         javax.swing.GroupLayout roundedPanel1Layout = new javax.swing.GroupLayout(roundedPanel1);
         roundedPanel1.setLayout(roundedPanel1Layout);
@@ -97,21 +159,29 @@ public class EntrarConta extends javax.swing.JFrame {
             roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel1Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(roundedPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabelC, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 5, Short.MAX_VALUE))
-                    .addComponent(label22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnVerSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelC, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(11, Short.MAX_VALUE))
+            .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(roundedPanel1Layout.createSequentialGroup()
+                    .addGap(9, 9, 9)
+                    .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(9, Short.MAX_VALUE)))
         );
         roundedPanel1Layout.setVerticalGroup(
             roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabelC)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(label22)
-                .addContainerGap(299, Short.MAX_VALUE))
+                .addGap(170, 170, 170)
+                .addComponent(btnVerSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(roundedPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -130,8 +200,8 @@ public class EntrarConta extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
-                .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -141,6 +211,34 @@ public class EntrarConta extends javax.swing.JFrame {
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
 
     }//GEN-LAST:event_btnMenuActionPerformed
+
+    private void btnVerSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerSenhaActionPerformed
+
+        if (senhaVisivel) {
+            SenhaL.setEchoChar('•');
+            senhaVisivel = false;
+        } else {
+            SenhaL.setEchoChar((char) 0);
+            senhaVisivel = true;
+        }
+    }//GEN-LAST:event_btnVerSenhaActionPerformed
+
+    private void EmailLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailLActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EmailLActionPerformed
+
+    private void SenhaLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SenhaLActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SenhaLActionPerformed
+
+    private void cadastroBntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroBntActionPerformed
+       
+        
+    }//GEN-LAST:event_cadastroBntActionPerformed
+
+    private void cadastroBntMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadastroBntMouseClicked
+
+    }//GEN-LAST:event_cadastroBntMouseClicked
 
     /**
      * @param args the command line arguments
@@ -168,12 +266,17 @@ public class EntrarConta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField EmailL;
+    private javax.swing.JPasswordField SenhaL;
     private javax.swing.JButton btnMenu;
+    private javax.swing.JButton btnVerSenha;
+    private com.mycompany.desenvolver60.RoundedButton cadastroBnt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelC;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JLabel label22;
+    private javax.swing.JLabel label23;
     private com.mycompany.desenvolver60.RoundedPanel roundedPanel1;
+    private com.mycompany.desenvolver60.RoundedPanel roundedPanel2;
     // End of variables declaration//GEN-END:variables
 }
