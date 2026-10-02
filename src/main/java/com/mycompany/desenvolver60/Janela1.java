@@ -269,8 +269,9 @@ public class Janela1 extends javax.swing.JFrame {
         jLabelTitle.setFont(FonteUtil.carregarFonte("AbrilFatface-Regular.ttf", 44f));
         jlabel2.setFont(FonteUtil.carregarFonte("LeagueSpartan-VariableFont_wght.ttf", 18f));
         
-
+        
         jlabel2.setText("<html><b>APRENDA A USAR CELULAR <br> E INTERNET COM FACILIDADE</b></html>");
+        
     }
 
     /**
@@ -492,7 +493,9 @@ public class Janela1 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoActionPerformed
-        System.out.println("Botão clicado!");
+       setVisible(false);
+       Modulos janela = new Modulos();
+       janela.setVisible(true);
     }//GEN-LAST:event_botaoActionPerformed
 
     private void botaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoMouseClicked

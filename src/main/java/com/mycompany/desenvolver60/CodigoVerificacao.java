@@ -4,14 +4,15 @@
  */
 package com.mycompany.desenvolver60;
 
-import java.security.SecureRandom;
-
+import java.util.Random;
 
 public class CodigoVerificacao {
-    private static final SecureRandom random = new SecureRandom();
-    public static String gerarCodigo(){
+
+    public static String gerarCodigo() {
+        Random random = new Random();
+
         int numero = 100000 + random.nextInt(900000);
+
         return String.valueOf(numero);
     }
 }
-

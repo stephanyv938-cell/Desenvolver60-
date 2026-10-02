@@ -1,17 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.mycompany.desenvolver60;
 
-import jakarta.mail.Authenticator;
-import jakarta.mail.Message;
-import jakarta.mail.MessagingException;
-import jakarta.mail.PasswordAuthentication;
-import jakarta.mail.Session;
-import jakarta.mail.Transport;
-import jakarta.mail.internet.InternetAddress;
-import jakarta.mail.internet.MimeMessage;
+import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.SimpleEmail;
 
 import java.util.Properties;
 
@@ -19,63 +11,50 @@ public class EnviarEmail {
 
     public EnviarEmail() {
     }
-     private static final String EMAIL_REMETENTE =
-            System.getenv("DESENVOLVER60_EMAIL");
+    private static final String EMAIL_REMETENTE
+            = System.getenv("DESENVOLVER60_EMAIL");
 
-    private static final String SENHA_APP =
-            System.getenv("DESENVOLVER60_EMAIL_PASSWORD");
+    private static final String SENHA_APP
+            = System.getenv("DESENVOLVER60_EMAIL_PASSWORD");
 
     public static void enviarCodigo(
             String destinatario,
-            String codigo) throws MessagingException {
+            String codigo) throws EmailException{
 
-        if (EMAIL_REMETENTE == null || SENHA_APP == null) {
-            throw new IllegalStateException(
-                    "As credenciais de e-mail não foram configuradas."
-            );
+        
+        SimpleEmail email = new SimpleEmail();
+
+        email.setHostName("smtp.gmail.com");
+        email.setSmtpPort(587);
+
+        email.setAuthenticator(
+                new DefaultAuthenticator(EMAIL_REMETENTE, SENHA_APP)
+        );
+
+        email.setSSLOnConnect(false);
+        email.setStartTLSEnabled(true);
+        email.setStartTLSRequired(true);
+
+        email.setFrom(EMAIL_REMETENTE, "Desenvolver 60+");
+
+        email.setSubject("Código de verificação - Desenvolver 60+");
+
+        email.setMsg(
+                "Olá!\n\n" +
+                "Seu código de verificação é: " + codigo +
+                "\n\nDigite este código no aplicativo para confirmar seu cadastro."
+        );
+        
+        email.addTo(destinatario);
+        email.send();
+       
         }
-
-        Properties propriedades = new Properties();
-
-        propriedades.put("mail.smtp.auth", "true");
-        propriedades.put("mail.smtp.starttls.enable", "true");
-        propriedades.put("mail.smtp.host", "smtp.gmail.com");
-        propriedades.put("mail.smtp.port", "587");
-
-        Session sessao = Session.getInstance(
-                propriedades,
-                new Authenticator() {
-                    @Override
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(
-                                EMAIL_REMETENTE,
-                                SENHA_APP
-                        );
-                    }
-                }
-        );
-
-        Message mensagem = new MimeMessage(sessao);
-
-        mensagem.setFrom(
-                new InternetAddress(EMAIL_REMETENTE)
-        );
-
-        mensagem.setRecipients(
-                Message.RecipientType.TO,
-                InternetAddress.parse(destinatario)
-        );
-
-        mensagem.setSubject(
-                "Código de verificação - Desenvolver 60+"
-        );
-
-        mensagem.setText(
-                "Seu código de verificação é: " + codigo
-                + "\n\nSe você não solicitou este cadastro, "
-                + "ignore esta mensagem."
-        );
-
-        Transport.send(mensagem);
+    public static void main(String[] args) {
+        System.out.println("EMAIL carregado: " + EMAIL_REMETENTE);
+        System.out.println("SENHA existe: " + (SENHA_APP != null));
+        System.out.println("Tamanho senha: " +
+        (SENHA_APP == null ? 0 : SENHA_APP.length()));
     }
+    
+
 }

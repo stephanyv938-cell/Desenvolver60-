@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JOptionPane;
 
+
 public class CriarConta extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CriarConta.class.getName());
@@ -150,21 +151,16 @@ public class CriarConta extends javax.swing.JFrame {
         roundedPanel1Layout.setHorizontalGroup(
             roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(roundedPanel1Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
                 .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelC, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+                    .addComponent(textNome)
                     .addGroup(roundedPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelC, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(roundedPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
-                            .addComponent(textNome)
-                            .addGroup(roundedPanel1Layout.createSequentialGroup()
-                                .addComponent(textSenha)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnVerSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(textSenha)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnVerSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(roundedPanel1Layout.createSequentialGroup()
                 .addGap(93, 93, 93)
@@ -230,7 +226,7 @@ public class CriarConta extends javax.swing.JFrame {
     }//GEN-LAST:event_cadastroBntMouseClicked
 
     private void cadastroBntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroBntActionPerformed
-       String nome = textNome.getText().trim();
+    String nome = textNome.getText().trim();
     String email = textEmail.getText().trim();
     String senha = new String(textSenha.getPassword()).trim();
 
@@ -244,7 +240,6 @@ public class CriarConta extends javax.swing.JFrame {
         return;
     }
 
-    
     if (!email.contains("@") || !email.contains(".")) {
 
         JOptionPane.showMessageDialog(
@@ -255,7 +250,6 @@ public class CriarConta extends javax.swing.JFrame {
         return;
     }
 
-    
     if (verificarEmail(email)) {
 
         JOptionPane.showMessageDialog(
@@ -266,15 +260,14 @@ public class CriarConta extends javax.swing.JFrame {
         return;
     }
 
-    
     String codigo = CodigoVerificacao.gerarCodigo();
 
     try {
 
         EnviarEmail.enviarCodigo(email, codigo);
 
-        
         VerificarEmail janela = new VerificarEmail(
+                nome,
                 email,
                 senha,
                 codigo

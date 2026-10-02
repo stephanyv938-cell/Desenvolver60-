@@ -1,11 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.mycompany.desenvolver60;
 
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
  *
@@ -20,7 +20,7 @@ public class VerificarEmail extends javax.swing.JFrame {
         private String senha;
         private String codigoCorreto;
 
-         public VerificarEmail(String nome, String email, String codigo) {
+         public VerificarEmail(String nome, String email, String senha, String codigo) {
 
         initComponents();
 
@@ -36,6 +36,41 @@ public class VerificarEmail extends javax.swing.JFrame {
                 new Color(244, 232, 184)
         );
     }
+    
+    private boolean cadastrarUsuario(){
+        String sql = """
+        INSERT INTO dadosCadastro
+        (nome, email, senha, verificado)
+        VALUES (?, ?, ?, ?)
+        """;
+
+    try (
+        Connection conexao = Conexao.conectar();
+        PreparedStatement stmt = conexao.prepareStatement(sql)
+    ) {
+
+        stmt.setString(1, nome);
+        stmt.setString(2, email);
+        stmt.setString(3, senha);
+        stmt.setInt(4, 1);
+
+        stmt.executeUpdate();
+
+        return true;
+
+    } catch (SQLException e) {
+
+        e.printStackTrace();
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Erro ao realizar o cadastro."
+        );
+
+        return false;
+    }
+    
+    }     
 
 
         /**
@@ -51,11 +86,9 @@ public class VerificarEmail extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         labelE = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
-        btnConfirmar = new com.mycompany.desenvolver60.RoundedButton();
+        cadastroBnt = new com.mycompany.desenvolver60.RoundedButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        roundedPanel1.setBackground(new java.awt.Color(0, 204, 204));
 
         jLabel1.setFont(new java.awt.Font("Abril Fatface", 0, 25)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -68,20 +101,20 @@ public class VerificarEmail extends javax.swing.JFrame {
         txtCodigo.setBorder(javax.swing.BorderFactory.createTitledBorder("Código"));
         txtCodigo.addActionListener(this::txtCodigoActionPerformed);
 
-        btnConfirmar.setBackground(new java.awt.Color(246, 211, 71));
-        btnConfirmar.setBorder(null);
-        btnConfirmar.setForeground(new java.awt.Color(20, 82, 84));
-        btnConfirmar.setText("Confirmar");
-        btnConfirmar.setToolTipText("Clique aqui para iniciar as atividades");
-        btnConfirmar.setBorderPainted(true);
-        btnConfirmar.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
-        btnConfirmar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btnConfirmar.addMouseListener(new java.awt.event.MouseAdapter() {
+        cadastroBnt.setBackground(new java.awt.Color(246, 211, 71));
+        cadastroBnt.setBorder(null);
+        cadastroBnt.setForeground(new java.awt.Color(20, 82, 84));
+        cadastroBnt.setText("Verificar");
+        cadastroBnt.setToolTipText("Clique aqui para iniciar as atividades");
+        cadastroBnt.setBorderPainted(true);
+        cadastroBnt.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        cadastroBnt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        cadastroBnt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnConfirmarMouseClicked(evt);
+                cadastroBntMouseClicked(evt);
             }
         });
-        btnConfirmar.addActionListener(this::btnConfirmarActionPerformed);
+        cadastroBnt.addActionListener(this::cadastroBntActionPerformed);
 
         javax.swing.GroupLayout roundedPanel1Layout = new javax.swing.GroupLayout(roundedPanel1);
         roundedPanel1.setLayout(roundedPanel1Layout);
@@ -99,10 +132,10 @@ public class VerificarEmail extends javax.swing.JFrame {
                         .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundedPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(119, 119, 119))
+            .addGroup(roundedPanel1Layout.createSequentialGroup()
+                .addGap(117, 117, 117)
+                .addComponent(cadastroBnt, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         roundedPanel1Layout.setVerticalGroup(
             roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,9 +146,9 @@ public class VerificarEmail extends javax.swing.JFrame {
                 .addComponent(labelE)
                 .addGap(33, 33, 33)
                 .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(btnConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(cadastroBnt, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(104, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -137,10 +170,6 @@ public class VerificarEmail extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodigoActionPerformed
 
     private void btnConfirmarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfirmarMouseClicked
 
@@ -176,21 +205,53 @@ public class VerificarEmail extends javax.swing.JFrame {
                     this,
                     "Código incorreto."
             );
+        }
     }//GEN-LAST:event_btnConfirmarActionPerformed
+
+    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoActionPerformed
+
+    private void cadastroBntMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadastroBntMouseClicked
+
+    }//GEN-LAST:event_cadastroBntMouseClicked
+
+    private void cadastroBntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroBntActionPerformed
+    String codigo = CodigoVerificacao.gerarCodigo();
+
+    try {
+
+        EnviarEmail.enviarCodigo(email, codigo);
+
+        VerificarEmail janela = new VerificarEmail(
+                nome,
+                email,
+                senha, codigo);
+
+        janela.setVisible(true);
+        this.dispose();
+
+    } catch (Exception e) {
+
+        e.printStackTrace();
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Não foi possível enviar o código de verificação."
+        );
     }
-    /*
-     * @param args the command line arguments
-     */
+    }//GEN-LAST:event_cadastroBntActionPerformed
+    
+
+    
     public static void main(String args[]) {
-      
 }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.mycompany.desenvolver60.RoundedButton btnConfirmar;
+    private com.mycompany.desenvolver60.RoundedButton cadastroBnt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel labelE;
-    private com.mycompany.desenvolver60.RoundedPanel roundedPanel1;
+    private RoundedPanel roundedPanel1;
     private javax.swing.JTextField txtCodigo;
     // End of variables declaration//GEN-END:variables
 }
-
